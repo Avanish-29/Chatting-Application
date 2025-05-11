@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { MdAttachFile, MdSend } from 'react-icons/md';
 import avanish from '../assets/Avanish.jpg';
 import aastha from '../assets/Aastha.jpg';
+import jagriti from '../assets/Jagriti.jpg';
+import defult from '../assets/defult.png';
 import useChatContext from '../context/ChatContext';
 import { useNavigate } from 'react-router';
 import SockJS from 'sockjs-client';
@@ -108,6 +110,14 @@ useEffect(() => {
         toast.success("Disconnected (:")
         navigate('/')
     }
+
+    //Avatars
+     const userAvatars = {
+    Avanish: avanish,
+    Aastha: aastha,
+    Jagriti: jagriti,
+    Defult: defult,
+  };
     return <div className="">
         {/*Header wala Div*/}
         <header className=" dark:bg-gray-900 fixed w-full dark:bg-gray-750 py-5 flex justify-around items-center">
@@ -143,7 +153,13 @@ useEffect(() => {
                         >
                         <div  className={`' ${message.sender===currentUser? 'bg-green-400':'bg-pink-300'} p-2 my-3 max-w-xs rounded'`}>
                         <div className='flex flex-row gap-2'>
-                            <img  className="h-12 w-12 rounded-full" src={message.sender === 'Avanish' ? avanish: aastha} alt={message.sender} />
+                            {userAvatars[message.sender] && (
+                    <img
+                      className="h-12 w-12 rounded-full"
+                      src={userAvatars[message.sender]}
+                      alt={message.sender}
+                    />
+                  )}
                             <div className=' flex flex-col gap-2'>
                             <p className="text -sm font-bold">{message.sender}</p>
                             <p>{message.content}</p>
